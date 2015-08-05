@@ -1,14 +1,10 @@
-angular.module('sampleApp').controller "TodoListCtrl", ($scope) ->
+angular.module('sampleApp').controller "TodoListCtrl", ($scope, TodoList, Todo) ->
   # Todoの初期値を作成する
   $scope.init = ->
-    $scope.list = {
-      'name': 'TODOリスト1',
-      'todos': [
-        { 'description': 'todo1', 'completed' : true },
-        { 'description': 'todo2', 'completed' : false },
-        { 'description': 'todo3', 'completed' : false }
-      ]
-    }
+    @todoListService = new TodoList(serverErrorHandler)
+    @todoService = new Todo(1, serverErrorHandler)
+
+    $scope.list = @todoListService.find(1)
 
   # Todoを追加する
   $scope.addTodo = (todoDescription) ->
@@ -26,3 +22,6 @@ angular.module('sampleApp').controller "TodoListCtrl", ($scope) ->
     $scope.list.todos = _.reject($scope.list.todos, (targetTodo) ->
       targetTodo == todo
     )
+
+  serverErrorHandler = ->
+    alert("サーバーでエラーが発生しました。画面を更新し、もう一度試してください。")

@@ -7,11 +7,15 @@ class Api::TodoListsController < ApplicationController
   end
 
   def update
-
+    todo = @todo_list.find(params[:id])
+    todo.update!(todo_params)
+    render json: todo, status: 204
   end
 
   def destroy
-
+    todo = @todo_list.find(params[:id])
+    todo.update!(todo_params)
+    render json: todo, status: 204
   end
 
   private
