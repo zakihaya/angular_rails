@@ -54,3 +54,6 @@ gem 'jquery-ui-rails'
 gem 'angularjs-rails'
 gem 'angular-ui-bootstrap-rails'
 gem 'underscore-rails'
+
+gem 'pry-rails'
+gem 'pry-byebug'

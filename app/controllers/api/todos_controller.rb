@@ -1,4 +1,4 @@
-class Api::TodoListsController < ApplicationController
+class Api::TodosController < ApplicationController
   before_action :set_todo_list
 
   def create
@@ -7,14 +7,14 @@ class Api::TodoListsController < ApplicationController
   end
 
   def update
-    todo = @todo_list.find(params[:id])
+    todo = @todo_list.todos.find(params[:id])
     todo.update!(todo_params)
     render json: todo, status: 204
   end
 
   def destroy
-    todo = @todo_list.find(params[:id])
-    todo.update!(todo_params)
+    todo = @todo_list.todos.find(params[:id])
+    todo.destroy
     render json: todo, status: 204
   end
 

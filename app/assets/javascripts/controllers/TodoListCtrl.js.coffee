@@ -8,8 +8,8 @@ angular.module('sampleApp').controller "TodoListCtrl", ($scope, TodoList, Todo) 
 
   # Todoを追加する
   $scope.addTodo = (todoDescription) ->
-    # 新しいTodoを作成する
-    todo = { 'description': todoDescription, 'completed' : false }
+    # todoを追加する(POST /api/todo_lists/:todo_lsit_id/todos => Api::Todo#destroy)
+    todo = @todoService.create(description: todoDescription, completed: false)
 
     # initメソッドで用意したtodosの先頭に、新しいtodoを追加する
     $scope.list.todos.unshift(todo)
@@ -19,9 +19,13 @@ angular.module('sampleApp').controller "TodoListCtrl", ($scope, TodoList, Todo) 
 
   # Todoを削除する
   $scope.deleteTodo = (todo) ->
-    $scope.list.todos = _.reject($scope.list.todos, (targetTodo) ->
-      targetTodo == todo
-    )
+    # todoをサーバーから削除する(DELETE /api/todo_lists/todo_list_id/todos/:id => Api::Todo#destroy)
+    @todoService.delete(todo)
+    $scope.list.todos.splice($scope.list.todos.indexOf(todo), 1)
 
   serverErrorHandler = ->
     alert("サーバーでエラーが発生しました。画面を更新し、もう一度試してください。")
+
+  # Todoの完了カラム ON/OFF
+  $scope.toggleTodo = (todo) ->
+    @todoService.update(todo, completed: todo.completed)
