@@ -7,4 +7,8 @@ class TemplatesController < ApplicationController
 
   def todo_list
   end
+
+  def template
+    render template: "templates/#{params[:path]}", layout: nil
+  end
 end
