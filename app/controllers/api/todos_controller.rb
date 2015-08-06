@@ -1,6 +1,10 @@
 class Api::TodosController < ApplicationController
   before_action :set_todo_list
 
+  def index
+    render json: @todo_list.todos.ransack(params[:q]).result
+  end
+
   def create
     todo = @todo_list.todos.create!(todo_params)
     render json: todo, status: 201

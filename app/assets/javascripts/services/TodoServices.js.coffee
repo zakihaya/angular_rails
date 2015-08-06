@@ -7,6 +7,9 @@ angular.module('sampleApp').factory 'Todo', ($resource, $http) ->
       )
       @errorHandler = errorHandler
 
+    all: (params) ->
+      @service.query params, (-> null), @errorHandler
+
     create: (todo_params) ->
       todo = new @service(todo_params)
       todo.$save({}, null, @errorHandler)

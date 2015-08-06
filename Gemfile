@@ -57,3 +57,5 @@ gem 'underscore-rails'
 
 gem 'pry-rails'
 gem 'pry-byebug'
+
+gem 'ransack'

@@ -27,5 +27,16 @@ angular.module('sampleApp').controller "TodoListCtrl", ($scope, TodoList, Todo) 
   $scope.toggleTodo = (todo) ->
     @todoService.update(todo, completed: todo.completed)
 
+  # 検索する
+  $scope.search = () ->
+    # Ransackに対応したparamsを作成する
+    # description_cont => descriptionカラムが特定の値を含む(like句に変換される)
+    # completed_true   => completedカラムがtrueか
+    params = {
+      'q[description_cont]': $scope.descriptionCont,
+      'q[completed_true]': $scope.completedTrue
+    }
+    $scope.list.todos = @todoService.all(params)
+
   serverErrorHandler = ->
     alert("サーバーでエラーが発生しました。画面を更新し、もう一度試してください。")

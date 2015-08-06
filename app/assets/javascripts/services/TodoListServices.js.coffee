@@ -7,8 +7,8 @@ angular.module('sampleApp').factory 'TodoList', ($resource, $http) ->
       )
       @errorHandler = errorHandler
 
-    all: ->
-      @service.query (-> null), @errorHandler
+    all: (params) ->
+      @service.query params, (-> null), @errorHandler
 
     find: (id, successHandler) ->
       @service.get({ id: id }, ((list) ->
