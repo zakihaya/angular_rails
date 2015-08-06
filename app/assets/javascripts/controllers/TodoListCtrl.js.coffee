@@ -23,9 +23,9 @@ angular.module('sampleApp').controller "TodoListCtrl", ($scope, TodoList, Todo) 
     @todoService.delete(todo)
     $scope.list.todos.splice($scope.list.todos.indexOf(todo), 1)
 
-  serverErrorHandler = ->
-    alert("サーバーでエラーが発生しました。画面を更新し、もう一度試してください。")
-
   # Todoの完了カラム ON/OFF
   $scope.toggleTodo = (todo) ->
     @todoService.update(todo, completed: todo.completed)
+
+  serverErrorHandler = ->
+    alert("サーバーでエラーが発生しました。画面を更新し、もう一度試してください。")
