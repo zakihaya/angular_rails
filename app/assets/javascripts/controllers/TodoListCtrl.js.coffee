@@ -1,10 +1,10 @@
-angular.module('sampleApp').controller "TodoListCtrl", ($scope, TodoList, Todo) ->
+angular.module('sampleApp').controller "TodoListCtrl", ($scope, $routeParams, TodoList, Todo) ->
   # Todoの初期値を作成する
   $scope.init = ->
     @todoListService = new TodoList(serverErrorHandler)
     @todoService = new Todo(1, serverErrorHandler)
 
-    $scope.list = @todoListService.find(1)
+    $scope.list = @todoListService.find($routeParams.list_id, (res) -> $scope.totalTodos = res.totalTodos)
 
   # Todoを追加する
   $scope.addTodo = (todoDescription) ->
