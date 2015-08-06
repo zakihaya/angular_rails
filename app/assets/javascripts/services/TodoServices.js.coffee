@@ -3,12 +3,15 @@ angular.module('sampleApp').factory 'Todo', ($resource, $http) ->
     constructor: (todoListId, errorHandler) ->
       @service = $resource('/api/todo_lists/:todo_list_id/todos/:id',
         { todo_list_id: todoListId, id: '@id' },
-        { update: { method: 'PUT' } }
+        { query: { isArray: false }, update: { method: 'PUT' } }
       )
       @errorHandler = errorHandler
 
-    all: (params) ->
-      @service.query params, (-> null), @errorHandler
+    all: (params, successHandler) ->
+      @service.query(params,((list)->
+        successHandler?(list)
+        list),
+        @errorHandler)
 
     create: (todo_params) ->
       todo = new @service(todo_params)

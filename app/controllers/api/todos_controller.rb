@@ -2,7 +2,9 @@ class Api::TodosController < ApplicationController
   before_action :set_todo_list
 
   def index
-    render json: @todo_list.todos.ransack(params[:q]).result
+    @q = @todo_list.todos.ransack(params[:q]).result
+    @todos = @q.page(params[:page])
+    @total_todos = @q.count
   end
 
   def create

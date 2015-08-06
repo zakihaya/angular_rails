@@ -34,9 +34,10 @@ angular.module('sampleApp').controller "TodoListCtrl", ($scope, $routeParams, To
     # completed_true   => completedカラムがtrueか
     params = {
       'q[description_cont]': $scope.descriptionCont,
-      'q[completed_true]': $scope.completedTrue
+      'q[completed_true]': $scope.completedTrue,
+      'page': $scope.currentPage
     }
-    $scope.list.todos = @todoService.all(params)
+    $scope.list = @todoService.all(params, (res)-> $scope.totalTodos = res.totalTodos)
 
   serverErrorHandler = ->
     alert("サーバーでエラーが発生しました。画面を更新し、もう一度試してください。")
